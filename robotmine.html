@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <style>
+        #container {
+            height: 400px;
+            width: 600px;
+            outline: 1px solid black;
+            position: relative;
+        }
+        
+        #robot {
+            position: absolute;
+            height: 25px;
+            width: 25px;
+            outline: 1px solid white;
+            background-color: green;
+            left: 0;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="robot"></div>
+    </div>
+    <p>You can see sum value is holded by the robot</p>
+    <p>Please move arrow keys i.e., key up, keydown , keyleft, key right to see the change in the robot</p>
+    <script>
+        var robot = document.getElementById("robot");
+        var container = document.getElementById("container");
+        var robotLeft = 0;
+        var robotTop = 0;
+
+        var x = 0;
+        var y = 0;
+        function animation(e) {
+
+            if (e.keyCode == 39) {
+
+                x += 1;
+                robotLeft += 2;
+
+                if (robotLeft >= 600) {
+                    robotLeft -= 2;
+                }
+                document.getElementById("robot").style.left = robotLeft + 'px';
+
+                var val = sumofNumbers(x, y);
+                identifyMine(val);
+
+                checkMines(x + 1, y);
+                checkMines(x, y + 1);
+            }
+            if (e.keyCode == 37) {
+                x -= 1;
+                robotLeft -= 2;
+                document.getElementById("robot").style.left = robotLeft + 'px';
+
+                sumofNumbers(x, y);
+                var val = sumofNumbers(x, y);
+                identifyMine(val);
+                checkMines(x - 1, y);
+                checkMines(x, y - 1);
+            }
+            if (e.keyCode == 38) {
+                y += 1;
+                robotTop += 2;
+                if (robotTop >= 400) {
+                    robotTop -= 2;
+                }
+                document.getElementById("robot").style.top = robotTop + 'px';
+
+                sumofNumbers(x, y);
+                var val = sumofNumbers(x, y);
+                identifyMine(val);
+                checkMines(x + 1, y);
+                checkMines(x, y + 1);
+            }
+            if (e.keyCode == 40) {
+                y -= 1;
+                robotTop -= 2;
+                console.log(robotTop);
+                document.getElementById("robot").style.top = robotTop + 'px';
+                sumofNumbers(x, y);
+                var val = sumofNumbers(x, y);
+                identifyMine(val);
+                checkMines(x - 1, y);
+                checkMines(x, y - 1);
+            }
+
+        }
+        function sumofNumbers(xvalue, yvalue) {
+
+            sumx = 0;
+            sumy = 0;
+            sum = 0;
+
+            if (xvalue < 10 && yvalue < 10) {
+                sum = xvalue + yvalue;
+            }
+            if (xvalue > 10 || yvalue > 10) {
+                while (xvalue) {
+                    sumx += xvalue % 10;
+                    xvalue = Math.floor(xvalue / 10);
+                }
+                while (yvalue) {
+                    sumy += yvalue % 10;
+                    yvalue = Math.floor(yvalue / 10);
+                }
+                sum = sumx + sumy;
+
+            }
+            return sum;
+        }
+        function identifyMine(val) {
+            if (val > 23) {
+                document.getElementById("robot").style.background = "red";
+
+            }
+            else {
+                document.getElementById("robot").style.background = "green";
+            }
+            document.getElementById("robot").innerHTML = sum;
+        }
+        function checkMines(x, y) {
+            var minealert = sumofNumbers(x, y);
+            if (minealert > 23) {
+                alert("If you go in the same direction then, there is Mine Nearby!!!!");
+            }
+
+
+        }
+        document.onkeyup = animation;
+
+    </script>
+
+</body>
+
+</html>
