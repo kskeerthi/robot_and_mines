@@ -118,19 +118,23 @@
             return sum;
         }
         function identifyMine(val) {
-            if (val > 23) {
-                document.getElementById("robot").style.background = "red";
+            if (val <= 23) {
+                document.getElementById("robot").style.background = "green";
+                
 
             }
             else {
-                document.getElementById("robot").style.background = "green";
+                document.getElementById("robot").style.background = "red";
             }
             document.getElementById("robot").innerHTML = sum;
         }
         function checkMines(x, y) {
             var minealert = sumofNumbers(x, y);
-            if (minealert > 23) {
-                alert("If you go in the same direction then, there is Mine Nearby!!!!");
+            if (minealert <= 23) {
+               console.log("safe");
+            }
+            else {
+                 alert("If you go in the same direction then, there is Mine Nearby!!!!");
             }
 
 
